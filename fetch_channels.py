@@ -1,6 +1,8 @@
+import parameters
 import requests
 import re
 import subprocess
+
 
 def extract_watch_urls(text):
     # Regular expression to find patterns that match "/watch?v=" followed by any character except for spaces or quotes
@@ -55,10 +57,11 @@ def run():
         channels = response.json()
         for channel in channels:
             print(f"last 3 videos of {channel['channelName']}" )
+            print(f"enable download: ({parameters.fetch_parameters().enable_download})")
             urls = get_last_three_videos(channel['channelUrl'])
             for url in urls:
                 print(url)
-                if (download_videos):
+                if (parameters.fetch_parameters().enable_download):
                     download_videos(urls, channel['channelOutputDirectory'])
             
     else:

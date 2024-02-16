@@ -58,7 +58,8 @@ def run():
             urls = get_last_three_videos(channel['channelUrl'])
             for url in urls:
                 print(url)
-                #download_videos(urls, channel['channelOutputDirectory'])
+                if (download_videos):
+                    download_videos(urls, channel['channelOutputDirectory'])
             
     else:
         print(f"Failed to fetch channels. Status code: {response.status_code}")

@@ -7,7 +7,8 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import fetch_channels
 
 app = Flask(__name__)
-video_output_directory = "/mnt/media/Videos"
+video_output_directory = ""
+enable_download = False
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 csv_file_path = 'channels.csv'
 
@@ -76,14 +77,17 @@ def start_background_service():
     scheduler.start()
     print(" * Background service started!")
 
-def configure_output_directory():
+def configure_parameters():
     parser = argparse.ArgumentParser(description='Flask app with dynamic video_output_directory for channel outputs.')
     parser.add_argument('--video_output_directory', type=str, help='video_output_directory for channel output', required=False, default="/mnt/media/Videos")
+    parser.add_argument('--enable_download', type=bool, help='enable-download last 3 videos for each channel', required=False, default=False)
     args = parser.parse_args()
     video_output_directory = args.video_output_directory
+    enable_download = args.enable_download
     print(f" * The video output directory is configured at {video_output_directory}")
+    print(f" * Download the videos is configured to {enable_download}")
    
 if __name__ == '__main__':
-    configure_output_directory()
+    configure_parameters()
     start_background_service()
     app.run(debug=True)

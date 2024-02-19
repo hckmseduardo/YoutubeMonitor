@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from './api/axiosConfig';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
@@ -8,7 +8,7 @@ const ChannelGrid = () => {
 
   const fetchChannels = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/channels');
+      const response = await axios.get('http://jellyfin.home:5000/channels');
       setChannels(response.data);
     } catch (error) {
       console.error('Error fetching channels:', error);
@@ -17,7 +17,7 @@ const ChannelGrid = () => {
 
   const deleteChannel = async (channelName) => {
     try {
-      await axios.delete(`http://localhost:5000/channels?channelName=${channelName}`);
+      await axios.delete(`http://jellyfin.home:5000/channels?channelName=${channelName}`);
       fetchChannels(); // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting channel:', error);

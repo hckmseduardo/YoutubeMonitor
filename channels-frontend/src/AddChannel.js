@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from './api/axiosConfig';
 
 const AddChannel = ({ onAdd }) => {
   const [channelName, setChannelName] = useState('');
@@ -7,7 +7,7 @@ const AddChannel = ({ onAdd }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('http://localhost:5000/channels', { channelName });
+      await axios.post('http://jellyfin.home:5000/channels', { channelName });
       onAdd();
       setChannelName(''); // Reset input field after submission
     } catch (error) {
@@ -21,7 +21,7 @@ const AddChannel = ({ onAdd }) => {
 		type="text"
 		value={channelName}
 		onChange={(e) => setChannelName(e.target.value)}
-		placeholder="Enter channel name"
+		placeholder="Enter channel name to add it to the catalog"
 		className="px-4 py-2 mr-2 border rounded shadow"
 		required
 	  />

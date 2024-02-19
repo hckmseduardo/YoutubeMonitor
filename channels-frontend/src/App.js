@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './logo.webp';
 import './App.css';
 import ChannelGrid from './ChannelGrid';
 import AddChannel from './AddChannel';
